@@ -6,7 +6,7 @@ from itertools import filterfalse
 from nltk.corpus import stopwords;
 
 stopwords = set(stopwords.words('english'))
-file_name = "Zhikai Zhan Resume.pdf"
+file_name = "./backend-engine/sample_resume.pdf"
 data = resumeparse.read_file(file_name)
 skills = data["skills"]
 
@@ -26,9 +26,11 @@ for i in range(0, len(skills)):
 # remove empty string
 skills[:] = filterfalse(lambda elm: len(elm) == 0, skills)
 
-json_skills = json.dumps(skills)
 
-print(json_skills)
+# convert skills to a string separated by , so that nodejs can retrive the results;
+mySeparator = ","
+str_skills = mySeparator.join(skills)
+print(str_skills)
 
 # Remove the file from the server side each time after generatings keywords
 # commented out at the momoent for testing purposes
