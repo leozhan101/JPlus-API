@@ -1,12 +1,13 @@
 import json
 import re
 import os
+import sys
 from resume_parser import resumeparse
 from itertools import filterfalse
 from nltk.corpus import stopwords;
 
 stopwords = set(stopwords.words('english'))
-file_name = "./backend-engine/sample_resume.pdf"
+file_name = "./backend-engine/" + sys.argv[1]
 data = resumeparse.read_file(file_name)
 skills = data["skills"]
 
