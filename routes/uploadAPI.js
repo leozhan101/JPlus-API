@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const { PythonShell } = require('python-shell');
+var db = require('../dbConfig');
 
 // /* GET home page. */
 router.post('/', function (req, res, next) {
@@ -39,6 +40,9 @@ router.post('/', function (req, res, next) {
     let skillJSON = JSON.stringify(skillObj);
 
     res.send(skillJSON);
+
+    db.insert(skillObj);
+
 
     console.log('finished');
   });

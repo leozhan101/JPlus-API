@@ -8,8 +8,12 @@ var indexRouter = require('./routes/index');
 var uploadAPIRouter = require('./routes/uploadAPI');
 var usersRouter = require('./routes/users');
 const fileUpload = require('express-fileupload');
+var db = require('./dbConfig');
 
 var app = express();
+
+db.connectDB();
+db.createCollection();
 
 // view engine setup
 app.use(fileUpload());
