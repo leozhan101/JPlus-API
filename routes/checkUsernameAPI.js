@@ -13,6 +13,8 @@ router.get('/', function (req, res, next) {
 
     let result = db.find(query, projection);
 
+    // result = db.find(query, projection);
+
     res.send(result);
 });
 
