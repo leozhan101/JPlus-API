@@ -3,9 +3,10 @@ var router = express.Router();
 var db = require('../dbConfig');
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.post('/', function (req, res, next) {
     let username = req.body.username;
     let password = req.body.password;
+    let firstname = "";
 
     let query = { username: username, password: password };
 
@@ -17,9 +18,10 @@ router.get('/', function (req, res, next) {
 
     if (result.length > 0) {
         pass = true;
+        firstname = result[0].firstname;
     }
 
-    pass = { pass: pass };
+    pass = { pass: pass, firstname: firstname};
 
     userNameExistObj = JSON.stringify(pass);
 
