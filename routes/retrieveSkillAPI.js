@@ -5,14 +5,13 @@ var db = require('../dbConfig');
 /* GET users listing. */
 router.get('/', function (req, res, next) {
     let username = req.query.username;
-    // let username = 'test';
     let query = {username: username};
     
     let projection = {_id: 0, skills: 1};
 
     let result = db.find(query, projection);
 
-    result = JSON.stringify(result);
+    result = JSON.stringify(result[0]);
     res.send(result);
 
 });
