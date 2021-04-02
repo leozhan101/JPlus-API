@@ -13,9 +13,9 @@ router.get('/', function (req, res, next) {
 
     let projection = {};
 
-    db.find(query, projection);
+    let result = db.find(query, projection);
 
-    res.send('authencation API page');
+    res.send(result);
 });
 
 module.exports = router;

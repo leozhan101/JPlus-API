@@ -10,7 +10,9 @@ router.get('/', function (req, res, next) {
     
     let projection = {_id: 0, skills: 1};
 
-    db.find(query, projection);
+    let result = db.find(query, projection);
+
+    res.send(result);
 
 });
 
