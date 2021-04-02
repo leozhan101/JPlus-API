@@ -4,8 +4,8 @@ var db = require('../dbConfig');
 
 /* GET users listing. */
 router.post('/', function (req, res, next) {
-    let skillObj = JSON.parse(req.query.skills);
-    let username = req.query.username;
+    let skillObj = JSON.parse(req.body.skills);
+    let username = req.body.username;
     
     selector = { username: username };
 
