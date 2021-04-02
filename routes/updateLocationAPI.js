@@ -11,7 +11,7 @@ router.post('/', function (req, res, next) {
 
     db.update(selector, locationObj);
 
-    res.send("Location Update");
+    // res.send("Location Update");
 });
 
 module.exports = router;

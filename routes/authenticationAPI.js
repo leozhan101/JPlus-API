@@ -2,14 +2,14 @@ var express = require('express');
 var router = express.Router();
 var db = require('../dbConfig');
 
-/* GET users listing. */
-router.post('/', function (req, res, next) {
+/* GET home page. */
+router.get('/', function (req, res, next) {
     let username = req.body.username;
     let password = req.body.password;
-   
-    let query = { username: username, password: password};
 
-    let projection = {};
+    let query = { username: username, password: password };
+
+    let projection = {_id: 0, firstname: 1 };
 
     let result = db.find(query, projection);
 
