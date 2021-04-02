@@ -12,6 +12,7 @@ router.get('/', function (req, res, next) {
 
     let result = db.find(query, projection);
 
+    let result = JSON.stringify(result);
     res.send(result);
 
 });

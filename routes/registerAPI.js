@@ -3,7 +3,7 @@ var router = express.Router();
 var db = require('../dbConfig');
 
 /* GET users listing. */
-router.post('/', function (req, res, next) {
+router.get('/', function (req, res, next) {
     let username = req.query.username;
     let firstname = req.query.firstName;
     let lastname = req.query.lastName;
@@ -13,7 +13,7 @@ router.post('/', function (req, res, next) {
 
     db.insert(myObj)
 
-    // res.send('register API page');
+    res.send('Just Inserted');
 });
 
 module.exports = router;
