@@ -4,14 +4,14 @@ var db = require('../dbConfig');
 
 /* GET users listing. */
 router.post('/', function (req, res, next) {
-    let locationObj = JSON.parse(req.query.location);
-    let username = req.query.username;
-    // let locationObj = {locations: "Toronto"};
-    // let username = 'test'
+    let locationObj = JSON.parse(req.body.location);
+    let username = req.body.username;
 
     selector = { username: username };
 
     db.update(selector, locationObj);
+
+    res.send("Location Update");
 });
 
 module.exports = router;

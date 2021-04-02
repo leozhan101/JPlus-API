@@ -11,7 +11,7 @@ router.post('/', function (req, res, next) {
 
     db.update(selector, skillObj);
 
-    // res.send('sucess');
+    res.send("location update");
 });
 
 module.exports = router;

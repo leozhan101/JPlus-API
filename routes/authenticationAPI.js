@@ -3,9 +3,9 @@ var router = express.Router();
 var db = require('../dbConfig');
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
-    let username = req.query.username;
-    let password = req.query.password;
+router.post('/', function (req, res, next) {
+    let username = req.body.username;
+    let password = req.body.password;
    
     let query = { username: username, password: password};
 
