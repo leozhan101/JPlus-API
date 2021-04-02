@@ -8,7 +8,6 @@ router.post('/', function (req, res, next) {
     let password = req.body.password;
     let firstname = "";
 
-    console.log("bdoy here: ", req.body);
     let query = { username: username, password: password };
 
     let projection = {_id: 0, firstname: 1 };

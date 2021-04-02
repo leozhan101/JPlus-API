@@ -11,7 +11,12 @@ router.get('/', function (req, res, next) {
 
     let result = db.find(query, projection);
 
-    result = JSON.stringify(result[0]);
+    if (result.length > 0) {
+        result = JSON.stringify(result[0]);
+    } else {
+        result = {}
+    }
+    
     res.send(result);
 
 });
