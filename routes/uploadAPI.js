@@ -6,7 +6,8 @@ var db = require('../dbConfig');
 // /* GET home page. */
 router.post('/', function (req, res, next) {
 
-  // console.log(req.files.foo);
+  // let username = req.query.username;
+  let username = "testing";
   let sampleFile;
   let uploadPath;
 
@@ -41,7 +42,12 @@ router.post('/', function (req, res, next) {
 
     res.send(skillJSON);
 
-    db.insert(skillObj);
+    obj = {
+      username: username,
+      skillObj,
+    }
+
+    db.insert(obj);
 
 
     console.log('finished');
