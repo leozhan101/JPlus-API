@@ -7,7 +7,7 @@ var db = require('../dbConfig');
 router.post('/', function (req, res, next) {
 
   // let username = req.query.username;
-  let username = "testing";
+  let username = "test";
   let sampleFile;
   let uploadPath;
 
@@ -37,18 +37,15 @@ router.post('/', function (req, res, next) {
 
     // convert results into an json object
     let skillArr = results[0].split(",");
+    // let skillArr = ['cani', 'mabi'];
     let skillObj = {skills: skillArr};
     let skillJSON = JSON.stringify(skillObj);
 
     res.send(skillJSON);
 
-    obj = {
-      username: username,
-      skillObj,
-    }
+    selector = {username: username};
 
-    db.insert(obj);
-
+    db.update(selector, skillObj);
 
     console.log('finished');
   });

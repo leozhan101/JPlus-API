@@ -1,9 +1,17 @@
 var express = require('express');
 var router = express.Router();
+var db = require('../dbConfig');
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
-    res.send('update skill API page');
+router.post('/', function (req, res, next) {
+    let skillObj = JSON.parse(req.query.skills);
+    let username = req.query.username;
+    
+    selector = { username: username };
+
+    db.update(selector, skillObj);
+
+    // res.send('sucess');
 });
 
 module.exports = router;

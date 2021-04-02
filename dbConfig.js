@@ -22,7 +22,6 @@ function connectDB() {
 }
 
 
-
 // // create a collection
 function createCollection() {
     var MongoClient = require('mongodb').MongoClient;
@@ -33,12 +32,19 @@ function createCollection() {
         dbo.createCollection(collection, function (err, res) {
             if (err) throw err;
             console.log("Collection created!");
-            db.close();
+            // db.close();
         });
+
+        col = dbo.collection(collection);
+
+        const result = col.createIndex({ username: 1 }, { unique: true })
+        
+        console.log(`Index created: ${result}`);
+        
+        db.close();
     });
+
 }
-
-
 
 // // insert object into collection
 function insert(obj) {
@@ -64,7 +70,7 @@ function update(query, newValue) {
         if (err) throw err;
         var dbo = db.db(dbName);
         var myquery = query
-        var newvalues = newValue
+        var newvalues = { $set: newValue }
         dbo.collection(collection).updateOne(myquery, newvalues, function (err, res) {
             if (err) throw err;
             console.log("1 document updated");
@@ -73,12 +79,31 @@ function update(query, newValue) {
     });
 }
 
+function find(queryObj, projectionObj) {
+    var r = [];
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://localhost:27017/";
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db(dbName);
+        dbo.collection(collection).find(queryObj, {projection: projectionObj}).toArray(function (err, result) {
+            if (err) throw err;
+            console.log(result);
+            r = result;
+            db.close();
+        });
+    });
+
+    return r;
+}
+
 
 // exports.retrive = retrive;
 exports.insert = insert;
 exports.connectDB = connectDB;
 exports.createCollection = createCollection;
 exports.update = update;
+exports.find = find;
 
 
 
