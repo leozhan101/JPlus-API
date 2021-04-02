@@ -5,10 +5,7 @@ var db = require('../dbConfig');
 /* GET users listing. */
 router.get('/', function (req, res, next) {
     let username = req.query.username;
-
-    // console.log('check name here: ', username);
-    // let username = "test"
-
+    
     let query = { username: username};
 
     let projection = {};

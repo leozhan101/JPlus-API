@@ -9,18 +9,11 @@ router.post('/', function (req, res, next) {
     let lastname = req.query.lastName;
     let password = req.query.password;
 
-    // console.log(`username here: ${username}`);
-
-    // let username = 'test';
-    // let firstname = 'first';
-    // let lastname = 'last';
-    // let password = 'pw';
-
     myObj = {username: username, firstname: firstname, lastname: lastname, password: password}
 
     db.insert(myObj)
 
-    res.send('register API page');
+    // res.send('register API page');
 });
 
 module.exports = router;

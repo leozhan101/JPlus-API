@@ -6,16 +6,24 @@ var db = require('../dbConfig');
 router.get('/', function (req, res, next) {
     let username = req.query.username;
     let password = req.query.password;
-    // let username = "test"
-    // let password = "pw";
-    
+   
     let query = { username: username, password: password};
 
     let projection = {};
 
     let result = db.find(query, projection);
 
-    res.send(result);
+    let pass = false;
+
+    if (result.length > 0) {
+        pass = true;
+    }
+
+    pass = { pass: pass };
+
+    userNameExistObj = JSON.stringify(pass);
+
+    res.send(pass);
 });
 
 module.exports = router;
