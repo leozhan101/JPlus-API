@@ -13,6 +13,7 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
-    "python-shell": "^3.0.0"
+    "python-shell": "^3.0.0",
+    "superagent": "^6.1.0"
   }
 }
