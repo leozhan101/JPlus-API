@@ -6,8 +6,8 @@ var db = require('../dbConfig');
 // /* GET home page. */
 router.post('/', function (req, res, next) {
 
-  // let username = req.query.username;
-  let username = "test";
+  let username = req.query.username;
+  // let username = "test";
   let sampleFile;
   let uploadPath;
 

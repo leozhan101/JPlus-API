@@ -4,10 +4,10 @@ var db = require('../dbConfig');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    // let username = req.query.username;
-    // let password = req.query.password;
-    let username = "test"
-    let password = "pw";
+    let username = req.query.username;
+    let password = req.query.password;
+    // let username = "test"
+    // let password = "pw";
     
     let query = { username: username, password: password};
 

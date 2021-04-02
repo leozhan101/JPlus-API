@@ -9,7 +9,7 @@ router.post('/', function (req, res, next) {
     let lastname = req.query.lastName;
     let password = req.query.password;
 
-    console.log(`username here: ${username}`);
+    // console.log(`username here: ${username}`);
 
     // let username = 'test';
     // let firstname = 'first';

@@ -6,7 +6,7 @@ var db = require('../dbConfig');
 router.get('/', function (req, res, next) {
     let username = req.query.username;
 
-    console.log('check name here: ', username);
+    // console.log('check name here: ', username);
     // let username = "test"
 
     let query = { username: username};
@@ -21,9 +21,11 @@ router.get('/', function (req, res, next) {
         userNameExist = true;
     }
 
-    userNameExist = JSON.stringify(userNameExist);
+    userNameExistObj = {userNameExist: userNameExist};
 
-    res.send(userNameExist);
+    userNameExistObj = JSON.stringify(userNameExistObj);
+
+    res.send(userNameExistObj);
 });
 
 module.exports = router;
