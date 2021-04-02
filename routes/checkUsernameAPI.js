@@ -4,8 +4,10 @@ var db = require('../dbConfig');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    // let username = req.query.username;
-    let username = "test"
+    let username = req.query.username;
+
+    console.log('check name here: ', username);
+    // let username = "test"
 
     let query = { username: username};
 
@@ -13,9 +15,15 @@ router.get('/', function (req, res, next) {
 
     let result = db.find(query, projection);
 
-    // result = db.find(query, projection);
+    let userNameExist = false;
 
-    res.send(result);
+    if (result.length > 0) {
+        userNameExist = true;
+    }
+
+    userNameExist = JSON.stringify(userNameExist);
+
+    res.send(userNameExist);
 });
 
 module.exports = router;

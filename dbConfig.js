@@ -79,7 +79,7 @@ function update(query, newValue) {
     });
 }
 
-var r;
+var r = [];
 function find(queryObj, projectionObj) {
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";
