@@ -8,20 +8,20 @@ router.post('/', function (req, res, next) {
 
   let username = req.body.username;
   // let username = "test";
-  let sampleFile;
+  let resume;
   let uploadPath;
 
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send('No files were uploaded.');
   }
 
-  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-  sampleFile = req.files.sampleFile;
+  // The name of the input field (i.e. "resume") is used to retrieve the uploaded file
+  resume = req.files.resume;
   console.log(process.cwd());
-  uploadPath = process.cwd() + "/backend-engine/" + sampleFile.name;
+  uploadPath = process.cwd() + "/backend-engine/" + resume.name;
 
   // Use the mv() method to place the file somewhere on your server
-  sampleFile.mv(uploadPath, function (err) {
+  resume.mv(uploadPath, function (err) {
     if (err)
       return res.status(500).send(err);
 
@@ -29,7 +29,7 @@ router.post('/', function (req, res, next) {
   });
 
   let options = {
-    args: [sampleFile.name]
+    args: [resume.name]
   };
 
   PythonShell.run('././backend-engine/keywords_extraction_engine.py', options, function (err, results) {
@@ -45,9 +45,11 @@ router.post('/', function (req, res, next) {
 
     selector = {username: username};
 
-    db.update(selector, skillObj);
+    let msg = db.update(selector, skillObj);
 
-    console.log('finished');
+    return msg;
+
+    // console.log('finished');
   });
 
 });

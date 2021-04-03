@@ -6,7 +6,6 @@ var logger = require('morgan');
 var cors = require("cors");
 
 var indexRouter = require('./routes/index');
-// var usersRouter = require('./routes/users');
 var updateLocationAPIRouter = require('./routes/updateLocationAPI');
 var updateSkillAPIRouter = require('./routes/updateSkillAPI');
 var retrieveSkillAPIRouter = require('./routes/retrieveSkillAPI');
