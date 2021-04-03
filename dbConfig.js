@@ -38,9 +38,9 @@ function createCollection() {
         col = dbo.collection(collection);
 
         const result = col.createIndex({ username: 1 }, { unique: true })
-        
+
         console.log(`Index created: ${result}`);
-        
+
         db.close();
     });
 
@@ -79,26 +79,30 @@ function update(query, newValue) {
     });
 }
 
-var r = [];
-function find(queryObj, projectionObj) {
-    var MongoClient = require('mongodb').MongoClient;
-    var url = "mongodb://localhost:27017/";
-    MongoClient.connect(url, function (err, db) {
-        if (err) throw err;
-        var dbo = db.db(dbName);
-        dbo.collection(collection).find(queryObj, {projection: projectionObj}).toArray(function (err, result) {
-            if (err) throw err;
-            console.log(result);
-            r = result;
-            db.close();
-        });
-    });
 
-    return r;
+const MongoClient = require('mongodb').MongoClient;
+const url = 'mongodb://localhost:27017';
+async function find(queryObj, projectionObj) {
+    const client = await MongoClient.connect(url, { useNewUrlParser: true })
+        .catch(err => { console.log(err); });
+
+    if (!client) {
+        return;
+    }
+
+    try {
+        const db = client.db(dbName);
+        let col = db.collection(collection);
+        let res = await col.find(queryObj, { projection: projectionObj }).toArray()
+        return res
+    } catch (err) {
+        console.log(err);
+    } finally {
+        client.close();
+    }
 }
 
 
-// exports.retrive = retrive;
 exports.insert = insert;
 exports.connectDB = connectDB;
 exports.createCollection = createCollection;

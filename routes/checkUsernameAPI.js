@@ -3,14 +3,14 @@ var router = express.Router();
 var db = require('../dbConfig');
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
+router.get('/', async function (req, res, next) {
     let username = req.query.username;
     
     let query = { username: username};
 
     let projection = {};
 
-    let result = db.find(query, projection);
+    let result = await db.find(query, projection);
 
     let userNameExist = false;
 

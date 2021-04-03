@@ -3,7 +3,7 @@ var router = express.Router();
 var db = require('../dbConfig');
 
 /* GET home page. */
-router.post('/', function (req, res, next) {
+router.post('/', async function (req, res, next) {
     let username = req.body.username;
     let password = req.body.password;
     let firstname = "";
@@ -12,7 +12,7 @@ router.post('/', function (req, res, next) {
 
     let projection = {_id: 0, firstname: 1 };
 
-    let result = db.find(query, projection);
+    let result = await db.find(query, projection);
 
     let pass = false;
 
