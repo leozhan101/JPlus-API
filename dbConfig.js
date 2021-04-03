@@ -49,19 +49,27 @@ function createCollection() {
 }
 
 // // insert object into collection
-function insert(obj) {
-    var MongoClient = require('mongodb').MongoClient;
-    var url = "mongodb://localhost:27017/";
-    MongoClient.connect(url, function (err, db) {
-        if (err) throw err;
-        var dbo = db.db(dbName);
+async function insert(obj) {
+    const client = await MongoClient.connect(url, { useNewUrlParser: true })
+        .catch(err => { console.log(err); });
+
+    if (!client) {
+        return;
+    }
+
+    try {
+        const db = client.db(dbName);
+        let col = db.collection(collection);
         var myobj = obj;
-        dbo.collection(collection).insertOne(myobj, function (err, res) {
-            if (err) throw err;
-            console.log("1 document inserted");
-            db.close();
-        });
-    });
+        await col.insertOne(myobj);
+        return "sucesss"
+    } catch (err) {
+        console.log(err);
+        return "failure";
+    } finally {
+        client.close();
+    }
+
 }
 
 async function update(query, newValue) {
@@ -102,7 +110,7 @@ async function find(queryObj, projectionObj) {
         return res
     } catch (err) {
         console.log(err);
-        // return "failure";
+        return "failure";
     } finally {
         client.close();
     }

@@ -34,7 +34,7 @@ router.get('/', function (req, res, next) {
             useragent: ''
         })
         .end((err, ans) => {
-            if (err) { return console.log(err); }
+            if (err) { return err }
             console.log(ans.body);
             res.send(ans.body);
             res.send(ans.body.jobtitle);

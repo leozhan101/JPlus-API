@@ -3,7 +3,7 @@ var router = express.Router();
 var db = require('../dbConfig');
 
 /* GET users listing. */
-router.post('/', function (req, res, next) {
+router.post('/', async function (req, res, next) {
     let firstname = req.body.firstname;
     let lastname = req.body.lastname;
     let username = req.body.username;
@@ -11,9 +11,9 @@ router.post('/', function (req, res, next) {
 
     myObj = {username: username, firstname: firstname, lastname: lastname, password: password}
 
-    db.insert(myObj)
+    let msg = await db.insert(myObj)
 
-    // res.send('Just Inserted');
+    res.send(msg);
 });
 
 module.exports = router;
