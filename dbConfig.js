@@ -75,11 +75,13 @@ async function update(query, newValue) {
     try {
         const db = client.db(dbName);
         let col = db.collection(collection);
+        var myquery = query
+        var newvalues = { $set: newValue }
         await col.updateOne(myquery, newvalues);
         return "sucesss"
     } catch (err) {
         console.log(err);
-        // return "failure";
+        return "failure";
     } finally {
         client.close();
     }

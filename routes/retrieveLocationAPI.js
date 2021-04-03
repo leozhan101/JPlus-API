@@ -7,7 +7,7 @@ router.get('/', async function (req, res, next) {
     let username = req.query.username;
     let query = { username: username };
 
-    let projection = { _id: 0, location: 1 };
+    let projection = { _id: 0, locations: 1 };
 
     let result = await db.find(query, projection);
 

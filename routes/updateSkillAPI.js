@@ -11,7 +11,9 @@ router.post('/', async function (req, res, next) {
 
     let msg = await db.update(selector, skillObj);
 
-    return msg;
+    console.log("msg here: ", msg);
+
+    res.send(msg);
 
 });
 
