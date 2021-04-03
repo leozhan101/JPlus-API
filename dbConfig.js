@@ -80,21 +80,44 @@ function update(query, newValue) {
 }
 
 var r = [];
-function find(queryObj, projectionObj) {
+async function find(queryObj, projectionObj) {
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";
-    MongoClient.connect(url, function (err, db) {
-        if (err) throw err;
-        var dbo = db.db(dbName);
-        dbo.collection(collection).find(queryObj, {projection: projectionObj}).toArray(function (err, result) {
+    
+    const client = await MongoClient.connect(url)
+        .catch(err => { console.log(err); });
+
+    if (!client){
+        return;
+    }
+
+    try{
+        const dbo = client.db(dbName);
+
+
+        // dbo.collection(collection).find(queryObj, {projection: projectionObj}).toArray(function (err, result) {
+        //     if (err) throw err;
+        //     console.log(result);
+        //     r = result;
+        //     db.close();
+        // });
+
+
+        var cursor = await dbo.collection(collection).find(queryObj, {projection: projectionObj})
+        console.log("got the cursor")
+
+        var r =  cursor.toArray(function (err, result) {
             if (err) throw err;
             console.log(result);
             r = result;
             db.close();
         });
-    });
-
-    return r;
+    }catch{
+            console.log("err occurred ")
+            return "failed"
+    }
+ 
+    
 }
 
 

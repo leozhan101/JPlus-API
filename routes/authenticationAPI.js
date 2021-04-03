@@ -12,7 +12,9 @@ router.post('/', function (req, res, next) {
 
     let projection = {_id: 0, firstname: 1 };
 
+    console.log("fetching result...")
     let result = db.find(query, projection);
+    onsole.log("result find...")
 
     let pass = false;
 
