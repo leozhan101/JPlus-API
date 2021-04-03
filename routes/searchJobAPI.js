@@ -3,15 +3,13 @@ var router = express.Router();
 const superagent = require('superagent');
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
-    console.log( `body here: ${req.query}`);
-
-    let locations = req.query.locations;
-    let skills = req.query.skills;
+router.post('/', function (req, res, next) {
+    let locations = req.body.locations;
+    let skills = req.body.skills;
    
 
-    let q = skills.join(", ");
-    let l = locations.join(", ");
+    let mySkills = skills.join(", ");
+    let myLocations = locations.join(", ");
    
 
     superagent.get('http://api.indeed.com/ads/apisearch')
@@ -19,10 +17,8 @@ router.get('/', function (req, res, next) {
             publisher: '7778623931867371',
             v: '2',
             format: 'json',
-            // q: 'C++, Java, Python, html, PHP, C, PERL,Communication, operation, management',
-            // l: 'Waterloo',
-            q: q,
-            l: l,
+            q: mySkills,
+            l: myLocations,
             radius: 50,
             limit: 3,
             sort: 'date',
@@ -35,9 +31,23 @@ router.get('/', function (req, res, next) {
         })
         .end((err, ans) => {
             if (err) { return err }
-            console.log(ans.body);
-            res.send(ans.body);
-            res.send(ans.body.jobtitle);
+            var result = ans.body.results.map(item => {
+                return {
+                    jobtitle: item.jobtitle,
+                    company: item.company,
+                    city: item.city,
+                    province: item.state,
+                    jobtitle: item.jobtitle,
+                    url: item.url,
+                    jobdescription: item.snippet
+                }
+            });
+
+            result = JSON.stringify(result)
+
+            console.log(ans.body.results);
+
+            res.send(result);
         });
 });
 
