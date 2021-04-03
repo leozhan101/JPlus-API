@@ -9,6 +9,8 @@ The following test requires the MongoDB is running.
 var mongo = require('mongodb');
 var dbName = 'JPlus';
 var collection = 'userInfo'
+const MongoClient = require('mongodb').MongoClient;
+const url = 'mongodb://localhost:27017';
 
 // connect MongoDB and create database
 function connectDB() {
@@ -62,26 +64,27 @@ function insert(obj) {
     });
 }
 
-function update(query, newValue) {
-    var MongoClient = require('mongodb').MongoClient;
-    var url = "mongodb://127.0.0.1:27017/";
+async function update(query, newValue) {
+    const client = await MongoClient.connect(url, { useNewUrlParser: true })
+        .catch(err => { console.log(err); });
 
-    MongoClient.connect(url, function (err, db) {
-        if (err) throw err;
-        var dbo = db.db(dbName);
-        var myquery = query
-        var newvalues = { $set: newValue }
-        dbo.collection(collection).updateOne(myquery, newvalues, function (err, res) {
-            if (err) throw err;
-            console.log("1 document updated");
-            db.close();
-        });
-    });
+    if (!client) {
+        return;
+    }
+
+    try {
+        const db = client.db(dbName);
+        let col = db.collection(collection);
+        await col.updateOne(myquery, newvalues);
+        return "sucesss"
+    } catch (err) {
+        console.log(err);
+        // return "failure";
+    } finally {
+        client.close();
+    }
 }
 
-
-const MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://localhost:27017';
 async function find(queryObj, projectionObj) {
     const client = await MongoClient.connect(url, { useNewUrlParser: true })
         .catch(err => { console.log(err); });
@@ -97,6 +100,7 @@ async function find(queryObj, projectionObj) {
         return res
     } catch (err) {
         console.log(err);
+        // return "failure";
     } finally {
         client.close();
     }
