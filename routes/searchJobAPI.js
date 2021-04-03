@@ -19,7 +19,7 @@ router.post('/', function (req, res, next) {
             format: 'json',
             q: mySkills,
             l: myLocations,
-            limit: 25,
+            limit: 24,
             fromage: 15,
             highlight: 1,
             filter: 1,
