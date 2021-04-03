@@ -8,8 +8,8 @@ router.post('/', function (req, res, next) {
     let skills = req.body.skills;
    
 
-    let mySkills = skills.join(", ");
-    let myLocations = locations.join(", ");
+    let mySkills = skills.join(" ");
+    let myLocations = locations.join(" ");
    
 
     superagent.get('http://api.indeed.com/ads/apisearch')
@@ -19,13 +19,12 @@ router.post('/', function (req, res, next) {
             format: 'json',
             q: mySkills,
             l: myLocations,
-            radius: 50,
-            limit: 3,
-            sort: 'date',
+            limit: 25,
+            fromage: 15,
             highlight: 1,
             filter: 1,
             latlong: 1,
-            co: 'canada'.toLowerCase(),
+            co: 'ca',
             userip: '',
             useragent: ''
         })
@@ -43,9 +42,9 @@ router.post('/', function (req, res, next) {
                 }
             });
 
-            result = JSON.stringify(result)
+            result = JSON.stringify({results: result});
 
-            console.log(ans.body.results);
+            // console.log(ans.body.results);
 
             res.send(result);
         });
