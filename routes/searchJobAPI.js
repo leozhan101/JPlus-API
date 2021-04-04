@@ -1,36 +1,48 @@
 var express = require('express');
 var router = express.Router();
 const superagent = require('superagent');
+const { response } = require('../app');
 
 /* GET users listing. */
-router.post('/', function (req, res, next) {
-    let locations = req.body.locations;
-    let skills = req.body.skills;
-   
+router.post('/', async function (req, res, next) {
+    var locations = req.body.locations;
+    var skills = req.body.skills;
+    var query = [];
 
-    let mySkills = skills.join(" ");
-    let myLocations = locations.join(" ");
-   
+    var i, j, temp, chunk = 1;
+    for (i = 0, j = skills.length; i < j; i += chunk) {
+        temp = skills.slice(i, i + chunk).join(" ");
+        query.push(temp);
+    }
 
-    superagent.get('http://api.indeed.com/ads/apisearch')
-        .query({
-            publisher: '7778623931867371',
-            v: '2',
-            format: 'json',
-            q: mySkills,
-            l: myLocations,
-            limit: 24,
-            fromage: 15,
-            highlight: 1,
-            filter: 1,
-            latlong: 1,
-            co: 'ca',
-            userip: '',
-            useragent: ''
-        })
-        .end((err, ans) => {
-            if (err) { return err }
-            var result = ans.body.results.map(item => {
+    var myLocations = locations.join(" ");
+
+    var l = 24 / query.length;
+    var limit = Math.ceil(l);
+    // console.log("limit here: ", limit);
+
+    var results = [];
+
+    for (i = 0; i < query.length; i++) {
+        try {
+            let response = await superagent.get('http://api.indeed.com/ads/apisearch')
+                .query({
+                    publisher: '7778623931867371',
+                    v: '2',
+                    format: 'json',
+                    q: query[i],
+                    l: myLocations,
+                    limit: limit,
+                    fromage: 15,
+                    highlight: 1,
+                    filter: 1,
+                    latlong: 1,
+                    co: 'ca',
+                    userip: '',
+                    useragent: ''
+                })
+
+            var r = response.body.results.map(item => {
                 return {
                     jobtitle: item.jobtitle,
                     company: item.company,
@@ -42,12 +54,17 @@ router.post('/', function (req, res, next) {
                 }
             });
 
-            result = JSON.stringify({results: result});
+            for (var k = 0; k < r.length; k++) {
+                results.push(r[k]);
+            }
+    
+        } catch (error) {
+            throw new Error(`error: ${error}.`);
+        }
+    }
 
-            // console.log(ans.body.results);
-
-            res.send(result);
-        });
+    // console.log("length fo results: ", results.length);
+    res.send(JSON.stringify({results: results}));
 });
 
 module.exports = router;
