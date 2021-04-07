@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 const superagent = require('superagent');
-const { response } = require('../app');
 
 /* GET users listing. */
 router.post('/', async function (req, res, next) {
@@ -19,7 +18,6 @@ router.post('/', async function (req, res, next) {
 
     var l = 24 / query.length;
     var limit = Math.ceil(l);
-    // console.log("limit here: ", limit);
 
     var results = [];
 
@@ -63,7 +61,9 @@ router.post('/', async function (req, res, next) {
         }
     }
 
-    // console.log("length fo results: ", results.length);
+    if (results.length > 24)
+        results = results.slice(0, 24);
+
     res.send(JSON.stringify({results: results}));
 });
 

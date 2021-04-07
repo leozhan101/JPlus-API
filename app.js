@@ -13,7 +13,7 @@ var retrieveLocationAPIRouter = require('./routes/retrieveLocationAPI');
 var checkUsernameAPIRouter = require('./routes/checkUsernameAPI');
 var registerAPIRouter = require('./routes/registerAPI');
 var authenticationAPIRouter = require('./routes/authenticationAPI');
-// var uploadAPIRouter = require('./routes/uploadAPI');
+var uploadAPIRouter = require('./routes/uploadAPI');
 var searchJobAPIRouter = require('./routes/searchJobAPI');
 
 
@@ -46,7 +46,7 @@ app.use('/retrieveLocationAPI', retrieveLocationAPIRouter);
 app.use('/checkUsernameAPI', checkUsernameAPIRouter);
 app.use('/registerAPI', registerAPIRouter);
 app.use('/authenticationAPI', authenticationAPIRouter);
-// app.use('/uploadAPI', uploadAPIRouter);
+app.use('/uploadAPI', uploadAPIRouter);
 app.use('/searchJobAPI', searchJobAPIRouter);
 
 
