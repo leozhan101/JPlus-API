@@ -5,9 +5,7 @@ var db = require('../dbConfig');
 
 // /* GET home page. */
 router.post('/', function (req, res, next) {
-
   let username = req.body.username;
-  // let username = "test";
   let resume;
   let uploadPath;
 
@@ -15,9 +13,8 @@ router.post('/', function (req, res, next) {
     return res.status(400).send('No files were uploaded.');
   }
 
-  // The name of the input field (i.e. "resume") is used to retrieve the uploaded file
-  resume = req.files.resume;
-  console.log(process.cwd());
+  // // The name of the input field (i.e. "resume") is used to retrieve the uploaded file
+  resume = req.files.file;
   uploadPath = process.cwd() + "/backend-engine/" + resume.name;
 
   // Use the mv() method to place the file somewhere on your server
@@ -25,31 +22,25 @@ router.post('/', function (req, res, next) {
     if (err)
       return res.status(500).send(err);
 
-    // res.send('File uploaded!');
+    console.log('file uploaded')
   });
 
   let options = {
     args: [resume.name]
   };
 
-  PythonShell.run('././backend-engine/keywords_extraction_engine.py', options, function (err, results) {
+  PythonShell.run('././backend-engine/keywords_extraction_engine.py', options, async function (err, results) {
     if (err) throw err;
 
-    // convert results into an json object
     let skillArr = results[0].split(",");
-    // let skillArr = ['cani', 'mabi'];
     let skillObj = {skills: skillArr};
-    let skillJSON = JSON.stringify(skillObj);
-
-    res.send(skillJSON);
 
     selector = {username: username};
 
-    let msg = db.update(selector, skillObj);
+    let msg = await db.update(selector, skillObj);
 
-    return msg;
+    res.send(msg);
 
-    // console.log('finished');
   });
 
 });
