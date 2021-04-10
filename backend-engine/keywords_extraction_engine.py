@@ -34,6 +34,6 @@ mySeparator = ","
 str_skills = mySeparator.join(skills)
 print(str_skills)
 
-Remove the file from the server side each time after generatings keywords
-commented out at the momoent for testing purposes
+# Remove the file from the server side each time after generatings keywords
+# commented out at the momoent for testing purposes
 os.remove(file_name)
