@@ -27,6 +27,15 @@ pip install -r requirements.txt
 npm start 
 ```
 
+# How to run APIs
+The best way is to use postman for your testing. If you like, you could also use 
+```
+// checkout app.js for all apis
+localhost:9000/SOMEAPI
+```
+
+For details on inputs and outputs, please refer to the APIs and Backend engine section, or alternatively, refer to the project report which includes screenshots of calling APIs using postman (each screenshot includes API name, endpoint URL, input and output. 
+
 # APIs and Backend engine
 The project is mainly written in NodeJS and ExpressJS. However, in order to extract skills from resumes by using natural language processing, Python is chosen to better handle tasks related to artificial intelligence. 
 
