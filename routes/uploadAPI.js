@@ -14,6 +14,7 @@ router.post('/', function (req, res, next) {
     return res.status(400).send('No files were uploaded.');
   }
 
+  // get file and store it in the backend-engine folder
   resume = req.files.file;
   uploadPath = process.cwd() + "/backend-engine/" + resume.name;
 
@@ -28,6 +29,7 @@ router.post('/', function (req, res, next) {
     args: [resume.name]
   };
 
+  // call keywords extraction engine
   PythonShell.run('././backend-engine/keywords_extraction_engine.py', options, async function (err, results) {
     if (err) throw err;
 
