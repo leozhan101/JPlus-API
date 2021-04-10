@@ -3,7 +3,7 @@ var router = express.Router();
 var db = require('../dbConfig');
 var sha1 = require('sha1');
 
-/* GET users listing. */
+// This API is responsible for storing user info into the database when they register a new account
 router.post('/', async function (req, res, next) {
     let firstname = req.body.firstname;
     let lastname = req.body.lastname;

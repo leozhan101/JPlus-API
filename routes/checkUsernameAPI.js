@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var db = require('../dbConfig');
 
-/* GET users listing. */
+// This API is responsible for checking if a username already exists in the database when a user is registing for a new account
 router.get('/', async function (req, res, next) {
     let username = req.query.username;
     

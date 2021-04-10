@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require("cors");
 
-var indexRouter = require('./routes/index');
 var updateLocationAPIRouter = require('./routes/updateLocationAPI');
 var updateSkillAPIRouter = require('./routes/updateSkillAPI');
 var retrieveSkillAPIRouter = require('./routes/retrieveSkillAPI');
@@ -37,8 +36,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-// app.use('/users', usersRouter);
 app.use('/updateLocationAPI', updateLocationAPIRouter);
 app.use('/updateSkillAPI', updateSkillAPIRouter);
 app.use('/retrieveSkillAPI', retrieveSkillAPIRouter);

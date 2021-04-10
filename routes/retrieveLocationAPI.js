@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var db = require('../dbConfig');
 
-/* GET users listing. */
+// This api is responsible for returning all locations a user added before 
 router.get('/', async function (req, res, next) {
     let username = req.query.username;
     let query = { username: username };

@@ -3,7 +3,8 @@ var router = express.Router();
 const { PythonShell } = require('python-shell');
 var db = require('../dbConfig');
 
-// /* GET home page. */
+// This api is responsible for getting a user's resume, extracting skills from it
+// and stored the extracted skills into the database
 router.post('/', function (req, res, next) {
   let username = req.body.username;
   let resume;
@@ -13,11 +14,9 @@ router.post('/', function (req, res, next) {
     return res.status(400).send('No files were uploaded.');
   }
 
-  // // The name of the input field (i.e. "resume") is used to retrieve the uploaded file
   resume = req.files.file;
   uploadPath = process.cwd() + "/backend-engine/" + resume.name;
 
-  // Use the mv() method to place the file somewhere on your server
   resume.mv(uploadPath, function (err) {
     if (err)
       return res.status(500).send(err);

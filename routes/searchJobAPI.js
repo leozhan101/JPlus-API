@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const superagent = require('superagent');
 
-/* GET users listing. */
+// This api is responsible for finding jobs that match user's skills and their location preferences
 router.post('/', async function (req, res, next) {
     var locations = req.body.locations;
     var skills = req.body.skills;

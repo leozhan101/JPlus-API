@@ -1,3 +1,4 @@
+# This file conatins python code to extract skills from uploaded resume using natural language processing
 import json
 import re
 import os
@@ -33,6 +34,6 @@ mySeparator = ","
 str_skills = mySeparator.join(skills)
 print(str_skills)
 
-# Remove the file from the server side each time after generatings keywords
-# commented out at the momoent for testing purposes
-# os.remove(file_name)
+Remove the file from the server side each time after generatings keywords
+commented out at the momoent for testing purposes
+os.remove(file_name)

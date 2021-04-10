@@ -3,7 +3,7 @@ var router = express.Router();
 var db = require('../dbConfig');
 var sha1 = require('sha1');
 
-/* GET home page. */
+// This API is responsible for checking the identity of user who log in through JPlus Log in page
 router.post('/', async function (req, res, next) {
     let username = req.body.username;
     let password = sha1(req.body.password);
@@ -13,6 +13,7 @@ router.post('/', async function (req, res, next) {
 
     let projection = {_id: 0, firstname: 1 };
 
+    // If user is in our database, then user's first name will be returned
     let result = await db.find(query, projection);
 
     let pass = false;
